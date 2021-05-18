@@ -1,0 +1,35 @@
+<!Doctype html>
+<html>
+    <head>
+        <title>View Entry</title>
+        <script type="module">
+            import {assetTableSchema} from "/script/const/formSchema.js";
+            import genTable from "/script/util/table/genTable.js";
+            import {getOne} from "/script/lib/net/asset.js";
+
+            // get the data, then generate the table
+            const table = document.querySelector("#list-entries");
+            function handleClick (row, event) {
+                console.log("Clicked on", row);
+                location.href = `${location.origin}/view.html?id=${row.id}`;
+            }
+            getOne({}).then(data => {
+                return genTable(data, assetTableSchema, table, handleClick);
+            })
+        </script>
+    </head>
+    <body>
+        <h1>Basic Inventory System Entries</h1>
+        <form id="data-form">
+            <div>
+                <label for="name">Name</label>
+                <input id="name" name="name">
+            </div>
+            <div>
+                <label for="type">Type</label>
+                <input id="type" name="type">
+            </div>
+            <input type="submit">
+        </form>
+    </body>
+</html>
