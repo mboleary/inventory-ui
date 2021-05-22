@@ -4,18 +4,42 @@
         <title>View Entry</title>
         <script type="module">
             import {assetTableSchema} from "/script/const/formSchema.js";
-            import genTable from "/script/util/table/genTable.js";
+            // import genTable from "/script/util/table/genTable.js";
+            import genForm from "/script/util/form/genForm.js";
             import {getOne} from "/script/lib/net/asset.js";
 
             // get the data, then generate the table
-            const table = document.querySelector("#list-entries");
+            const form = document.querySelector("#data-form");
             function handleClick (row, event) {
                 console.log("Clicked on", row);
                 location.href = `${location.origin}/view.html?id=${row.id}`;
             }
-            getOne({}).then(data => {
-                return genTable(data, assetTableSchema, table, handleClick);
-            })
+
+            const params = (new URL(document.location)).searchParams;
+
+            let id = params.get('id');
+            if (id !== null) {
+                getOne({id: id}).then(data => {
+                    // return genTable(data, assetTableSchema, data-form, handleClick);
+                    genForm(data, form);
+                })
+            }
+            form.onformdata = (e) => {
+                console.log('formdata', e);
+
+                // Get the form data from the event object
+                let data = e.formData;
+                for (var value of data.entries()) {
+                    console.log(value);
+                }
+                e.preventDefault();
+            }
+            form.onsubmit = (e) => {
+                // e.preventDefault();
+            }
+            form.onchange = (e) => {
+                console.log("Change:", e);
+            }
         </script>
     </head>
     <body>
@@ -29,6 +53,8 @@
                 <label for="type">Type</label>
                 <input id="type" name="type">
             </div>
+            <input type="checkbox" name="check" checked="true" value="test" as="boolean">
+            <input type="hidden" name="jsonTest" as="object">
             <input type="submit">
         </form>
     </body>
