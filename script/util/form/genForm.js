@@ -58,6 +58,9 @@ export default function genForm(data = {}, elem, onChange = null, onSubmit = nul
     elem.addEventListener("change", (e) => {
         console.log("Form Change:", e);
         e.stopPropagation();
+        if (onChange) {
+            onChange(e);
+        }
     });
 
     // We'll probably just ignore this event
@@ -76,6 +79,10 @@ export default function genForm(data = {}, elem, onChange = null, onSubmit = nul
         let data = getData(e.target.elements);
 
         console.log("Form Data:", data);
+
+        if (onSubmit) {
+            onSubmit(data, e);
+        }
     });
 
     elem.appendChild(frag);

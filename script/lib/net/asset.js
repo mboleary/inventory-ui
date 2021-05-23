@@ -28,7 +28,7 @@ export async function post(payload) {
 
 export async function put(payload) {
     const resp = await fetch(`http://${ENDPOINT}/asset/${payload.id}`, {
-        method: "POST",
+        method: "PUT",
         headers: {
             'Content-Type': 'application/json'
         },

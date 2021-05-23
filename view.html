@@ -6,7 +6,7 @@
             import {assetTableSchema} from "/script/const/formSchema.js";
             // import genTable from "/script/util/table/genTable.js";
             import genForm from "/script/util/form/genForm.js";
-            import {getOne} from "/script/lib/net/asset.js";
+            import {getOne, post, put} from "/script/lib/net/asset.js";
 
             // get the data, then generate the table
             const form = document.querySelector("#data-form");
@@ -15,35 +15,38 @@
                 location.href = `${location.origin}/view.html?id=${row.id}`;
             }
 
+            function handleChange(e) {
+                // Here is where we would modify other fields in the form if needed
+            }
+
+            async function handleSubmit(data, e) {
+                // This is where we handle the submit action of the form
+
+                // @TODO Validate the data
+
+                console.log("About to save:", data.id);
+
+                if (!data.id) {
+                    await post(data);
+                } else {
+                    await put(data);
+                }
+
+                location.href = `${location.origin}/`;
+            }
+
             const params = (new URL(document.location)).searchParams;
 
             let id = params.get('id');
             if (id !== null) {
                 getOne({id: id}).then(data => {
-                    // return genTable(data, assetTableSchema, data-form, handleClick);
-                    genForm(data, form);
+                    genForm(data, form, handleChange, handleSubmit);
                 })
-            }
-            form.onformdata = (e) => {
-                console.log('formdata', e);
-
-                // Get the form data from the event object
-                let data = e.formData;
-                for (var value of data.entries()) {
-                    console.log(value);
-                }
-                e.preventDefault();
-            }
-            form.onsubmit = (e) => {
-                // e.preventDefault();
-            }
-            form.onchange = (e) => {
-                console.log("Change:", e);
             }
         </script>
     </head>
     <body>
-        <h1>Basic Inventory System Entries</h1>
+        <h1>View Entry</h1>
         <form id="data-form">
             <div>
                 <label for="name">Name</label>
