@@ -6,13 +6,21 @@ const ENDPOINT = "localhost:8000";
 
 export async function getAll(params) {
     const resp = await fetch(`http://${ENDPOINT}/asset`);
-    const dataset = resp.json();
-    return dataset;
+    if (resp.ok) {
+        const dataset = resp.json();
+        return dataset;
+    } else {
+        throw await resp.json();
+    }
 }
 
 export async function getOne(params) {
     const resp = await fetch(`http://${ENDPOINT}/asset/${params.id}`);
-    return resp.json();
+    if (resp.ok) {
+        return resp.json();
+    } else {
+        throw await resp.json();
+    }
 }
 
 export async function post(payload) {
@@ -23,7 +31,11 @@ export async function post(payload) {
         },
         body: JSON.stringify(payload)
     });
-    return resp.json();
+    if (resp.ok) {
+        return resp.json();
+    } else {
+        throw await resp.json();
+    }
 }
 
 export async function put(payload) {
@@ -34,12 +46,20 @@ export async function put(payload) {
         },
         body: JSON.stringify(payload)
     });
-    return resp.json();
+    if (resp.ok) {
+        return resp.json();
+    } else {
+        throw await resp.json();
+    }
 }
 
 export async function deleteItem(params) {
     const resp = await fetch(`http://${ENDPOINT}/asset/${params.id}`, {
         method: "DELETE",
     });
-    return resp.json();
+    if (resp.ok) {
+        return resp.json();
+    } else {
+        throw await resp.json();
+    }
 }

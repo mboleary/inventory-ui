@@ -22,14 +22,15 @@ export default function genForm(data = {}, elem, onChange = null, onSubmit = nul
         if (e.name) {
             fieldsFound[e.name] = true;
             const type = getType(data[e.name]);
-            e.as = type;
-            if (type === "array") {
-                e.value = JSON.stringify(data[e.name] || []);
-            } else if (type === "object") {
-                e.value = JSON.stringify(data[e.name] || {});
-            } else {
-                e.value = data[e.name] || "";
-            }
+            // e.as = type;
+            // if (type === "array") {
+            //     e.value = JSON.stringify(data[e.name] || []);
+            // } else if (type === "object") {
+            //     e.value = JSON.stringify(data[e.name] || {});
+            // } else {
+            //     e.value = data[e.name] || "";
+            // }
+            setElement(e, data[e.name], type);
         }
     }
 
@@ -147,4 +148,30 @@ function getData(elems) {
         }
     }
     return toRet;
+}
+
+// Sets the element to the specified value
+function setElement(elem, initData, type) {
+    let dataToSet = null;
+
+    if (type === "array") {
+        dataToSet = JSON.stringify(initData || []);
+    } else if (type === "object") {
+        dataToSet = JSON.stringify(initData || {});
+    } else {
+        dataToSet = initData || "";
+    }
+
+    elem.as = type;
+
+    if (elem.type && elem.type === "radio") {
+        // Set the checked value correctly
+        if (elem.value === dataToSet) {
+            elem.checked = true;
+        } else {
+            elem.checked = false;
+        }
+    } else {
+        elem.value = initData;
+    }
 }
