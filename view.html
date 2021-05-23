@@ -2,11 +2,28 @@
 <html>
     <head>
         <title>View Entry</title>
+        <link rel="stylesheet" type="text/css" href="style/main.css">
+        <link rel="stylesheet" type="text/css" href="style/header.css">
+        <link rel="stylesheet" type="text/css" href="style/footer.css">
+        <link rel="stylesheet" type="text/css" href="style/content.css">
+        <link rel="stylesheet" type="text/css" href="style/cards.css">
+        <link rel="stylesheet" type="text/css" href="style/article.css">
+        <link rel="stylesheet" type="text/css" href="style/misc.css">
+        <link rel="stylesheet" type="text/css" href="style/print.css">
+        <meta charset="UTF-8">
+        <meta name="description" content="Blank Template Page">
+        <meta name="author" content="Webtemplate">
+        <meta name="generator" content="none">
+        <meta name="keywords" content="keywords, go, here">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#00121a"> <!-- Colored Chrome Mobile Tabs! -->
+        <link rel="icon" type="image/png" href="/favicon.png">
         <script type="module">
             import {assetTableSchema} from "/script/const/formSchema.js";
             // import genTable from "/script/util/table/genTable.js";
             import genForm from "/script/util/form/genForm.js";
             import {getOne, post, put} from "/script/lib/net/asset.js";
+            import genCards from "/script/util/card/genCard.js";
 
             // get the data, then generate the table
             const form = document.querySelector("#data-form");
@@ -41,6 +58,22 @@
             if (id !== null) {
                 getOne({id: id}).then(data => {
                     genForm(data, form, handleChange, handleSubmit);
+
+                    const relCards = document.getElementById("relation-cards");
+                    const relTemplate = document.getElementById("relation-card");
+                    genCards(data.relations, relTemplate, relCards);
+
+                    const imageCards = document.getElementById("image-cards");
+                    const imageTemplate = document.getElementById("image-card");
+
+                    genCards(data.images, imageTemplate, imageCards, null, null, (data, content) => {
+                        const img = content.querySelector("img");
+                        if (data.image_path) {
+                            img.src = `http://localhost:8003/${data.image_path}`;
+                        } else {
+                            img.hidden = true;
+                        }
+                    });
                 })
             }
         </script>
@@ -58,7 +91,26 @@
             </div>
             <input type="checkbox" name="check" checked="true" value="test" as="boolean">
             <input type="hidden" name="jsonTest" as="object">
+            <div id="relation-cards"></div>
+            <div id="image-cards"></div>
             <input type="submit">
         </form>
+        <template id="relation-card">
+            <div card-action="click" style="border: 1px solid black">
+                <h2 name="name"></h2>
+                <p name="type"></p>
+                <p name="acquired_value"></p>
+                <!-- Setting `type` is important to prevent submitting the form -->
+                <button type="button" card-action="delete">Remove</button>
+            </div>
+        </template>
+        <template id="image-card">
+            <div card-action="click" style="border: 1px solid black">
+                <h2 name="name"></h2>
+                <img src="#">
+                <!-- Setting `type` is important to prevent submitting the form -->
+                <button type="button" card-action="delete">Remove</button>
+            </div>
+        </template>
     </body>
 </html>

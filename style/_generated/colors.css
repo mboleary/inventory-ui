@@ -1,0 +1,44 @@
+/* All Colors in the website are located here */
+
+:root {
+    /* Accent Colors */
+    --accent_1: #000000;
+    --accent_2: #000000;
+    --accent_3: #000000;
+    --accent_4: #000000;
+
+    /* Background Colors */
+    --bg_1: #ffffff;
+    --bg_2: #ffffff;
+    --bg_3: #ffffff;
+    --bg_4: #ffffff;
+
+    /* AUX Colors */
+    --warning: #ffff00;
+    --error: #ff0000;
+    --highlight_1: #ffff00;
+    --highlight_2: #00ff00;
+    --highlight_3: #0000ff;
+    --highlight_4: #ff00ff;
+
+    /* Greys, White, and Black */
+    --black: #000;
+    --white: #fff;
+    --gray_1: #111;
+    --gray_2: #222;
+    --gray_3: #333;
+    --gray_4: #444;
+    --gray_5: #555;
+    --gray_6: #666;
+    --gray_7: #777;
+    --gray_8: #888;
+    --gray_9: #999;
+    --gray_a: #aaa;
+    --gray_b: #bbb;
+    --gray_c: #ccc;
+    --gray_d: #ddd;
+    --gray_e: #eee;
+
+    /* Derivatives of above */
+
+}
