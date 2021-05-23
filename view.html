@@ -10,6 +10,7 @@
         <link rel="stylesheet" type="text/css" href="style/article.css">
         <link rel="stylesheet" type="text/css" href="style/misc.css">
         <link rel="stylesheet" type="text/css" href="style/print.css">
+        <link rel="stylesheet" type="text/css" href="style/form.css">
         <meta charset="UTF-8">
         <meta name="description" content="Blank Template Page">
         <meta name="author" content="Webtemplate">
@@ -24,6 +25,8 @@
             import genForm from "/script/util/form/genForm.js";
             import {getOne, post, put} from "/script/lib/net/asset.js";
             import genCards from "/script/util/card/genCard.js";
+            import buildForm from "/script/util/form/buildForm.js";
+            import {assetFormSchema} from "/script/const/formSchema.js";
 
             // get the data, then generate the table
             const form = document.querySelector("#data-form");
@@ -52,6 +55,11 @@
                 location.href = `${location.origin}/`;
             }
 
+            // Generate the form
+
+            const formTarget = document.getElementById("elements");
+            buildForm(assetFormSchema, formTarget);
+
             const params = (new URL(document.location)).searchParams;
 
             let id = params.get('id');
@@ -79,22 +87,23 @@
         </script>
     </head>
     <body>
-        <h1>View Entry</h1>
-        <form id="data-form">
-            <div>
-                <label for="name">Name</label>
-                <input id="name" name="name">
-            </div>
-            <div>
-                <label for="type">Type</label>
-                <input id="type" name="type">
-            </div>
-            <input type="checkbox" name="check" checked="true" value="test" as="boolean">
-            <input type="hidden" name="jsonTest" as="object">
-            <div id="relation-cards"></div>
-            <div id="image-cards"></div>
-            <input type="submit">
-        </form>
+        <section class="container">
+            <form id="data-form" class="info">
+                <div class="head">
+                    <h1>Edit Entry</h1>
+                </div>
+                <div class="body">
+                    <p>Edit the inventory item to your liking</p>
+                    <div id="elements"></div>
+                    <h3 class="accent-3 vbar">Related assets</h3>
+                    <div id="relation-cards"></div>
+                    <h3 class="accent-3 vbar">Images</h3>
+                    <div id="image-cards"></div>
+                    <hr>
+                    <input type="submit" value="Submit">
+                </div>
+            </form>
+        </section>
         <template id="relation-card">
             <div card-action="click" style="border: 1px solid black">
                 <h2 name="name"></h2>

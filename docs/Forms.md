@@ -11,25 +11,6 @@ We'll first need to know the `id` of the entry to make a GET request for. This c
 After making the request, we'll need to set the form data. This involves going through each input element and setting the appropriate value, or adding a input (type="hidden") to store the rest of the data.
 
 To do this, we'll use the `genForm` function provided in the form utility, which will take an existing form and set the data properly, as well as handle serializing and deserializing the data to be submitted back to the REST API. It also provides functions to handle when the data is changed in an input element, and when the form is submitted.
-
-## 
-
-Fields for a column:
-
-- field: field in the API that an input affects
-- label: Label on the input
-- type: Input type
-    - ...HTML5 Inputs
-    - hidden (meant to be either updated by other components, or not touched at all)
-- component: Defines the use of a custom component
-- required: true if the field is required
-- options: Used in defining the options for a field
-    - min
-    - max
-    - step
-    - 
-
-
 ## Auto-generating the form from a schema
 
 Forms can also be auto-generated based on a JSON schema provided
@@ -77,6 +58,7 @@ The following Input Types are supported
 - radio
 - color
 - date
+- datetime
 - email
 - range
 - tel
