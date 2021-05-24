@@ -46,14 +46,12 @@ export function genOneCard(item, template, elem, onClick, onDelete, cardCallback
         const cardAction = elem.getAttribute("card-action");
         if (cardAction === "click" && onClick) {
             elem.dataset.id = item.id;
-            // @TODO add click handler
             elem.addEventListener("click", (e) => {
                 e.stopPropagation();
                 onClick(e);
             });
         } else if (cardAction === "delete") {
             if (onDelete) {
-                // @TODO add click handler
                 elem.addEventListener("click", (e) => {
                     e.stopPropagation();
                     onDelete(e);

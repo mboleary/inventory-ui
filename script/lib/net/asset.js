@@ -2,6 +2,8 @@
  * Contains all requests that the program needs to make
  */
 
+import {datetime_iso2form, datetime_form2iso} from "/script/util/format/date.js";
+
 const ENDPOINT = "localhost:8000";
 
 export async function getAll(params) {
@@ -17,13 +19,26 @@ export async function getAll(params) {
 export async function getOne(params) {
     const resp = await fetch(`http://${ENDPOINT}/asset/${params.id}`);
     if (resp.ok) {
-        return resp.json();
+        let data = await resp.json();
+        data.date_acquired = datetime_iso2form(data.date_acquired);
+        console.log("Returning:", data);
+        return data;
     } else {
         throw await resp.json();
     }
 }
 
 export async function post(payload) {
+    payload.date_acquired = datetime_form2iso(payload.date_acquired);
+    if (!payload.images) {
+        payload.images = [];
+    }
+    if (!payload.relations) {
+        payload.relations = [];
+    }
+    if (!payload.tags) {
+        payload.tags = [];
+    }
     const resp = await fetch(`http://${ENDPOINT}/asset`, {
         method: "POST",
         headers: {
@@ -39,6 +54,7 @@ export async function post(payload) {
 }
 
 export async function put(payload) {
+    payload.date_acquired = datetime_form2iso(payload.date_acquired);
     const resp = await fetch(`http://${ENDPOINT}/asset/${payload.id}`, {
         method: "PUT",
         headers: {

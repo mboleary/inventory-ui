@@ -1,0 +1,75 @@
+/* Temporary place to stash CSS until the new CSS Library is written */
+
+.backdrop[open] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #00000088;
+    width: 100vw;
+    height: max(100vh, 100%);
+}
+
+.backdrop:not([open]) {
+    display: none;
+}
+
+.disableScroll {
+    overflow: hidden;
+}
+
+.blur {
+    filter: blur(10px);
+}
+
+.dialog {
+    border: 2px solid black;
+}
+
+.dialogContainer {
+    display: flex;
+    align-items: center;
+}
+
+.noMargin {
+    margin: 0 !important;
+}
+
+.noPadding {
+    padding: 0;
+}
+
+.fullHeight {
+    height: 100%;
+}
+
+.fullWidth {
+    width: 100%;
+}
+
+.layout {
+    display: flex;    
+}
+
+.horizontal {
+    flex-direction: row;
+}
+
+.vertical {
+    flex-direction: column;
+}
+
+.center {
+    align-items: center;
+}
+
+.flex {
+    flex: 1 1 auto;
+}
+
+.resize {
+    resize: both;
+}
+
+.height-10 {
+    height: 10px;
+}

@@ -8,7 +8,7 @@ export default function buildForm(schema, elem, options = {}) {
     for (const item of schema.items) {
         let child = null;
 
-        if (["text", "number", "color", "date", "datetime", "email", "range", "tel", "url"].indexOf(item.type) !== -1) {
+        if (["text", "number", "color", "date", "email", "datetime", "range", "tel", "url"].indexOf(item.type) !== -1) {
             child = genInput(item);
         } else if (item.type === "textarea") {
             child = genTextArea(item);
@@ -44,10 +44,16 @@ function genInput(schemaItem) {
 
     fieldset.classList.add("container");
 
+    let type = schemaItem.type;
+
+    if (schemaItem.type === "datetime") {
+        type = "datetime-local";
+    }
+
     label.innerText = schemaItem.label || schemaItem.id;
     label.for = schemaItem.id;
 
-    input.type = schemaItem.type || "text";
+    input.type = type || "text";
     input.value = schemaItem.default || null;
     input.placeholder = schemaItem.placeholder || "";
     input.name = schemaItem.id;

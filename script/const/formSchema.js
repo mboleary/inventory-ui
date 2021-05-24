@@ -173,3 +173,38 @@ export const assetFormSchema = {
         },
     ]
 }
+
+export const imageFormSchema = {
+    id: "",
+    rev: "",
+    title: "Image Form",
+    items: [
+        {
+            id: "id",
+            type: "hidden"
+        },
+        {
+            id: "created_at",
+            type: "hidden"
+        },
+        {
+            id: "updated_at",
+            type: "hidden"
+        },
+        {
+            id: "deleted",
+            type: "hidden"
+        },
+        {
+            id: "name",
+            type: "text",
+            label: "Name",
+            placeholder: "Enter a name",
+            default: "",
+            validation: {
+                required: true,
+                message: "Please enter a name"
+            }
+        },
+    ]
+}

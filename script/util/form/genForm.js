@@ -30,7 +30,7 @@ export default function genForm(data = {}, elem, onChange = null, onSubmit = nul
             // } else {
             //     e.value = data[e.name] || "";
             // }
-            setElement(e, data[e.name], type);
+            setElement(e, data[e.name] || "", type);
         }
     }
 
@@ -173,5 +173,19 @@ function setElement(elem, initData, type) {
         }
     } else {
         elem.value = initData;
+    }
+}
+
+export function fixButtons(elem) {
+    const buttons = elem.querySelectorAll("button");
+
+    console.log("Buttons:", buttons);
+
+    if (buttons) {
+        for (const b of buttons) {
+            if (!b.getAttribute("type")) {
+                b.setAttribute("type", "button");
+            }
+        }
     }
 }
