@@ -99,7 +99,7 @@ function getType(data) {
     return typeof data;
 }
 
-function getData(elems) {
+export function getData(elems) {
     const toRet = {};
     for (const elem of elems) {
         if (elem.value && elem.name) {
@@ -151,7 +151,7 @@ function getData(elems) {
 }
 
 // Sets the element to the specified value
-function setElement(elem, initData, type) {
+export function setElement(elem, initData, type) {
     let dataToSet = null;
 
     if (type === "array") {

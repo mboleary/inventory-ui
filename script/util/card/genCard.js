@@ -48,13 +48,13 @@ export function genOneCard(item, template, elem, onClick, onDelete, cardCallback
             elem.dataset.id = item.id;
             elem.addEventListener("click", (e) => {
                 e.stopPropagation();
-                onClick(e);
+                onClick(item, e);
             });
         } else if (cardAction === "delete") {
             if (onDelete) {
                 elem.addEventListener("click", (e) => {
                     e.stopPropagation();
-                    onDelete(e);
+                    onDelete(item, e);
                 });
             } else {
                 elem.hidden = true;

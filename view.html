@@ -40,6 +40,9 @@
             const backdrop = document.querySelector("div.backdrop");
             const dialogs = document.querySelectorAll("dialog");
 
+            let tagsDataset = [];
+            let relatedDataset = [];
+
             function handleChange(e) {
                 // Here is where we would modify other fields in the form if needed
                 console.log("Input Changed");
@@ -59,6 +62,14 @@
                 }
 
                 location.href = `${location.origin}/`;
+            }
+
+            function handleImageCardClick(data) {
+                console.log("Click:", data);
+            }
+
+            function handleImageCardDelete(data) {
+                console.log("Delete:", data);
             }
 
             // Generate the form
@@ -82,7 +93,7 @@
 
                     genCards(data.relations, relTemplate, relCards);
 
-                    genCards(data.images, imageTemplate, imageCards, null, null, (data, content) => {
+                    genCards(data.images, imageTemplate, imageCards, handleImageCardClick, handleImageCardDelete, (data, content) => {
                         const img = content.querySelector("img");
                         if (data.image_path) {
                             img.src = `http://localhost:8003/${data.image_path}`;
@@ -150,6 +161,20 @@
                     b.addEventListener("click", openDialog);
                 }
             }
+
+            const addImageBtn = form.querySelector("#add-image");
+            addImageBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                if (id) {
+                    window.open('/imageNew.html?id=' + id);
+                } else {
+                    window.open('/imageNew.html');
+                }
+            });
+
+            window.addImage = (data) => {
+                console.log("Received Image:", data);
+            }
         </script>
     </head>
     <body>
@@ -163,14 +188,14 @@
                     <div form-elements></div>
                     <h3 class="accent-1 vbar">Related assets</h3>
                     <div relation-cards></div>
-                    <button show-dialog="relation-dlg">Add Relation</button>
+                    <button show-dialog="test-dlg">Add Relation</button>
                     <h3 class="accent-3 vbar">Images</h3>
                     <div image-cards></div>
-                    <button show-dialog="image-dlg">Add Image</button>
+                    <button id="add-image">Add Image</button>
                     <h3 class="accent-4 hbar">Tags</h3>
                     <div tags></div>
                     <div class="height-10"></div>
-                    <button id="btn-tag">Add Tag</button>
+                    <button show-dialog="test-dlg">Add Tag</button>
                     <hr>
                     <input type="submit" value="Submit">
                 </div>
@@ -192,7 +217,7 @@
                 </form>
             </dialog>
 
-            <dialog id="test-dialog" class="dialog">
+            <dialog id="test-dlg" class="dialog">
                 <div class="layout horizontal">
                     <h1 class="flex"> Hello World </h1>
                     <span dialog-action="close">X</span>
@@ -204,20 +229,24 @@
         <template id="relation-card">
             <article card-action="click" style="border: 1px solid black">
                 <div class="article-header">
-                    <h2 name="name"></h2>
+                    <div class="layout horizontal">
+                        <h2 name="name" clas="flex"></h2>
+                        <!-- Setting `type` is important to prevent submitting the form -->
+                        <button type="button" card-action="delete">Remove</button>
+                    </div>
                     <p name="type"></p>
                     <p name="acquired_value"></p>
                 </div>
-                <!-- Setting `type` is important to prevent submitting the form -->
-                <button type="button" card-action="delete">Remove</button>
             </article>
         </template>
         <template id="image-card">
-            <article card-action="click" style="border: 1px solid black">
-                <h2 name="name"></h2>
+            <article card-action="click" class="layout vertical" style="border: 1px solid black">
+                <div class="layout horizontal">
+                    <h2 name="name" clas="flex"></h2>
+                    <!-- Setting `type` is important to prevent submitting the form -->
+                    <button type="button" card-action="delete">Remove</button>
+                </div>
                 <img src="#" loading="lazy">
-                <!-- Setting `type` is important to prevent submitting the form -->
-                <button type="button" card-action="delete">Remove</button>
             </article>
         </template>
         <template id="tag">

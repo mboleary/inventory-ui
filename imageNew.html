@@ -1,0 +1,91 @@
+<!Doctype html>
+<html>
+    <head>
+        <title>View Entry</title>
+        <link rel="stylesheet" type="text/css" href="style/main.css">
+        <link rel="stylesheet" type="text/css" href="style/header.css">
+        <link rel="stylesheet" type="text/css" href="style/footer.css">
+        <link rel="stylesheet" type="text/css" href="style/content.css">
+        <link rel="stylesheet" type="text/css" href="style/cards.css">
+        <link rel="stylesheet" type="text/css" href="style/article.css">
+        <link rel="stylesheet" type="text/css" href="style/misc.css">
+        <link rel="stylesheet" type="text/css" href="style/print.css">
+        <link rel="stylesheet" type="text/css" href="style/form.css">
+        <link rel="stylesheet" type="text/css" href="style/tag.css">
+
+        <link rel="stylesheet" type="text/css" href="customStyle/custom.css">
+
+        <meta charset="UTF-8">
+        <meta name="description" content="Blank Template Page">
+        <meta name="author" content="Webtemplate">
+        <meta name="generator" content="none">
+        <meta name="keywords" content="keywords, go, here">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#00121a"> <!-- Colored Chrome Mobile Tabs! -->
+        <link rel="icon" type="image/png" href="/favicon.png">
+        <script type="module">
+            import genForm, {fixButtons, getData} from "/script/util/form/genForm.js";
+
+            const origin = location.origin;
+
+            const form = document.querySelector("#data-form");
+            const flavorText = form.querySelector("[flavor-text]");
+
+            const backdrop = document.querySelector("div.backdrop");
+            const dialogs = document.querySelectorAll("dialog");
+
+            function handleChange(e) {
+                // Here is where we would modify other fields in the form if needed
+                console.log("Input Changed");
+            }
+
+            const params = (new URL(document.location)).searchParams;
+
+            let id = params.get('id');
+            if (id) {
+                const entryIdInput = form.querySelector("input[name='entry_id']");
+                entryIdInput.value = id;
+            }
+
+            form.addEventListener("submit", (e) => {
+                location.href = `${origin}/`;
+                if (window.opener) {
+                    const dataFromForm = getData(form.elements);
+                    window.opener.addImage(dataFromForm);
+                    window.close();
+                }
+            })
+        </script>
+    </head>
+    <body>
+        <section class="container">
+            <form id="data-form" class="info" action="http://localhost:8000/image/upload" method="POST" enctype="multipart/form-data">
+                <div class="head">
+                    <h1>Upload Image</h1>
+                </div>
+                <div class="body">
+                    <p flavor-text>Use this to upload an image</p>
+                    <fieldset>
+                        <label for="image">Image Upload</label><br>
+                        <input type="file" name="image" id="image">
+                    </fieldset>
+                    <fieldset>
+                        <label for="name">Name</label><br>
+                        <input type="text" name="name" id="name">
+                    </fieldset>
+                    <fieldset>
+                        <label for="description">Description</label><br>
+                        <textarea name="description" id="description"></textarea>
+                    </fieldset>
+                    <fieldset>
+                        <input type="checkbox" name="avatar" id="avatar" value="1">
+                        <label for="name">Avatar</label>
+                    </fieldset>
+                    <hr>
+                    <input type="submit" value="Submit">
+                </div>
+                <input type="hidden" name="entry_id">
+            </form>
+        </section>
+    </body>
+</html>
