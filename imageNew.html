@@ -46,29 +46,29 @@
             })
         </script>
     </head>
-    <body>
+    <body dark>
         <section class="container">
-            <form id="data-form" class="info" action="http://localhost:8000/image/upload" method="POST" enctype="multipart/form-data">
-                <div class="head">
+            <form id="data-form" action="http://localhost:8000/image/upload" method="POST" enctype="multipart/form-data">
+                <div class="app-bar">
                     <h1>Upload Image</h1>
                 </div>
                 <div class="body">
                     <p flavor-text>Use this to upload an image</p>
-                    <fieldset>
-                        <label for="image">Image Upload</label><br>
+                    <fieldset class="flex-layout vertical">
+                        <label for="image">Image Upload</label>
                         <input type="file" name="image" id="image">
                     </fieldset>
-                    <fieldset>
-                        <label for="name">Name</label><br>
+                    <fieldset class="flex-layout vertical">
+                        <label for="name">Name</label>
                         <input type="text" name="name" id="name">
                     </fieldset>
-                    <fieldset>
-                        <label for="description">Description</label><br>
+                    <fieldset class="flex-layout vertical">
+                        <label for="description">Description</label>
                         <textarea name="description" id="description"></textarea>
                     </fieldset>
-                    <fieldset>
-                        <input type="checkbox" name="avatar" id="avatar" value="1">
-                        <label for="name">Avatar</label>
+                    <fieldset class="flex-layout vertical">
+                        <label for="avatar" class="option"><input type="checkbox" name="avatar" id="avatar" value="1">Avatar</label>
+                        
                     </fieldset>
                     <hr>
                     <input type="submit" value="Submit">
