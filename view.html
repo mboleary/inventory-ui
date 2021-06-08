@@ -12,6 +12,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="theme-color" content="#00121a"> <!-- Colored Chrome Mobile Tabs! -->
         <link rel="icon" type="image/png" href="/favicon.png">
+        <script>
+            function toggleDark() {
+                const elem = document.body;
+                let state = elem.getAttribute("dark");
+                if (state === null) {
+                    elem.setAttribute("dark", "");
+                } else {
+                    elem.removeAttribute("dark");
+                }
+            }
+        </script>
         <script type="module">
             import {assetTableSchema, assetFormSchema, imageFormSchema} from "/script/const/formSchema.js";
             // import genTable from "/script/util/table/genTable.js";
@@ -189,6 +200,7 @@
                     <input type="submit" value="Submit">
                 </div>
             </form>
+            <button onclick="toggleDark()">Toggle Dark mode</button>
         </section>
         <div class="backdrop dialogContainer flex-layout vertical center">
             <dialog id="image-dlg" class="dialog noPadding">

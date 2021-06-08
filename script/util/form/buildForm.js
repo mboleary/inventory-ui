@@ -39,10 +39,12 @@ export default function buildForm(schema, elem, options = {}) {
 function genInput(schemaItem) {
     const fieldset = document.createElement("fieldset");
     const label = document.createElement("label");
-    const br = document.createElement("br");
+    // const br = document.createElement("br");
     const input = document.createElement("input");
 
-    fieldset.classList.add("container");
+    fieldset.classList.add("flex-layout");
+    fieldset.classList.add("vertical");
+    // fieldset.classList.add("required");
 
     let type = schemaItem.type;
 
@@ -60,7 +62,7 @@ function genInput(schemaItem) {
     input.id = schemaItem.id;
 
     fieldset.appendChild(label);
-    fieldset.appendChild(br);
+    // fieldset.appendChild(br);
     fieldset.appendChild(input);
 
     return fieldset;
@@ -69,10 +71,12 @@ function genInput(schemaItem) {
 function genTextArea(schemaItem) {
     const fieldset = document.createElement("fieldset");
     const label = document.createElement("label");
-    const br = document.createElement("br");
+    // const br = document.createElement("br");
     const textarea = document.createElement("textarea");
 
-    fieldset.classList.add("container");
+    fieldset.classList.add("flex-layout");
+    fieldset.classList.add("vertical");
+    // fieldset.classList.add("required");
 
     label.innerText = schemaItem.label || schemaItem.id;
     label.for = schemaItem.id;
@@ -83,7 +87,7 @@ function genTextArea(schemaItem) {
     textarea.id = schemaItem.id;
 
     fieldset.appendChild(label);
-    fieldset.appendChild(br);
+    // fieldset.appendChild(br);
     fieldset.appendChild(textarea);
 
     return fieldset;
@@ -92,18 +96,24 @@ function genTextArea(schemaItem) {
 function genRadio(schemaItem) {
     const fieldset = document.createElement("fieldset");
     const label = document.createElement("label");
-    const br = document.createElement("br");
+    // const br = document.createElement("br");
 
-    fieldset.classList.add("container");
+    fieldset.classList.add("flex-layout");
+    fieldset.classList.add("vertical");
+    // fieldset.classList.add("required");
     
     label.innerText = schemaItem.label || schemaItem.id;
     
     fieldset.appendChild(label);
-    fieldset.appendChild(br);
+    // fieldset.appendChild(br);
 
     for (const item of schemaItem.options) {
         const input = document.createElement("input");
         const labelItem = document.createElement("label");
+        // const labelTextNode = document.createTextNode()
+        let text = "";
+
+        labelItem.classList.add("option");
         
         input.type = "radio";
         input.name = schemaItem.id;
@@ -112,19 +122,22 @@ function genRadio(schemaItem) {
             // use key / value
             id = `${schemaItem.id}_${item.key.replace(" ", "").toLowerCase()}`;
             input.value = item.key;
-            labelItem.textContent = item.value;
+            text = item.value;
         } else {
             id = `${schemaItem.id}_${item.replace(" ", "").toLowerCase()}`;
             input.value = item;
-            labelItem.textContent = item;
+            text = item;
         }
         
         input.id = id;
         labelItem.for = id;
         
-        fieldset.appendChild(input);
+        // fieldset.appendChild(input);
+        labelItem.appendChild(input);
+        labelItem.appendChild(document.createTextNode(text));
+
         fieldset.appendChild(labelItem);
-        fieldset.appendChild(document.createElement("br"));
+        // fieldset.appendChild(document.createElement("br"));
     }
 
     return fieldset;

@@ -12,6 +12,9 @@ export default function genCards(data, template, elem, onClick = null, onDelete 
 
     const parentDiv = document.createElement("div");
     parentDiv.isCardContainer = true;
+    parentDiv.classList.add("flex-layout");
+    parentDiv.classList.add("horizontal");
+    parentDiv.classList.add("wrap");
 
     for (const item of data) {
         genOneCard(item, template, parentDiv, onClick, onDelete, cardCreateCallback);

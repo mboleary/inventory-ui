@@ -12,6 +12,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="theme-color" content="#00121a"> <!-- Colored Chrome Mobile Tabs! -->
         <link rel="icon" type="image/png" href="/favicon.png">
+        <script>
+            function toggleDark() {
+                const elem = document.body;
+                let state = elem.getAttribute("dark");
+                if (state === null) {
+                    elem.setAttribute("dark", "");
+                } else {
+                    elem.removeAttribute("dark");
+                }
+            }
+        </script>
         <script type="module">
             import genForm, {fixButtons, getData} from "/script/util/form/genForm.js";
 
@@ -75,6 +86,7 @@
                 </div>
                 <input type="hidden" name="entry_id">
             </form>
+            <button onclick="toggleDark()">Toggle Dark mode</button>
         </section>
     </body>
 </html>
