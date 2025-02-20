@@ -3,13 +3,6 @@
     <head>
         <title>Basic Inventory System</title>
         <link rel="stylesheet" type="text/css" href="style/main.css">
-        <link rel="stylesheet" type="text/css" href="style/header.css">
-        <link rel="stylesheet" type="text/css" href="style/footer.css">
-        <link rel="stylesheet" type="text/css" href="style/content.css">
-        <link rel="stylesheet" type="text/css" href="style/cards.css">
-        <link rel="stylesheet" type="text/css" href="style/article.css">
-        <link rel="stylesheet" type="text/css" href="style/misc.css">
-        <link rel="stylesheet" type="text/css" href="style/print.css">
         <meta charset="UTF-8">
         <meta name="description" content="Blank Template Page">
         <meta name="author" content="Webtemplate">
@@ -18,6 +11,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="theme-color" content="#00121a"> <!-- Colored Chrome Mobile Tabs! -->
         <link rel="icon" type="image/png" href="/favicon.png">
+        <script>
+            function toggleDark() {
+                const elem = document.body;
+                let state = elem.getAttribute("dark");
+                if (state === null) {
+                    elem.setAttribute("dark", "");
+                } else {
+                    elem.removeAttribute("dark");
+                }
+            }
+        </script>
         <script type="module">
             import {assetTableSchema} from "/script/const/formSchema.js";
             import genTable from "/script/util/table/genTable.js";
@@ -34,8 +38,11 @@
             })
         </script>
     </head>
-    <body>
-        <h1>Basic Inventory System Entries</h1>
-        <table id="list-entries"></table>
+    <body dark>
+        <main class="container">
+            <h1 class="hbar">Basic Inventory System Entries</h1>
+            <table id="list-entries"></table>
+            <button onclick="toggleDark()">Toggle Dark mode</button>
+        </main>
     </body>
 </html>

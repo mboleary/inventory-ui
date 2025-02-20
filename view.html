@@ -3,17 +3,6 @@
     <head>
         <title>View Entry</title>
         <link rel="stylesheet" type="text/css" href="style/main.css">
-        <link rel="stylesheet" type="text/css" href="style/header.css">
-        <link rel="stylesheet" type="text/css" href="style/footer.css">
-        <link rel="stylesheet" type="text/css" href="style/content.css">
-        <link rel="stylesheet" type="text/css" href="style/cards.css">
-        <link rel="stylesheet" type="text/css" href="style/article.css">
-        <link rel="stylesheet" type="text/css" href="style/misc.css">
-        <link rel="stylesheet" type="text/css" href="style/print.css">
-        <link rel="stylesheet" type="text/css" href="style/form.css">
-        <link rel="stylesheet" type="text/css" href="style/tag.css">
-
-        <link rel="stylesheet" type="text/css" href="customStyle/custom.css">
 
         <meta charset="UTF-8">
         <meta name="description" content="Blank Template Page">
@@ -23,6 +12,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="theme-color" content="#00121a"> <!-- Colored Chrome Mobile Tabs! -->
         <link rel="icon" type="image/png" href="/favicon.png">
+        <script>
+            function toggleDark() {
+                const elem = document.body;
+                let state = elem.getAttribute("dark");
+                if (state === null) {
+                    elem.setAttribute("dark", "");
+                } else {
+                    elem.removeAttribute("dark");
+                }
+            }
+        </script>
         <script type="module">
             import {assetTableSchema, assetFormSchema, imageFormSchema} from "/script/const/formSchema.js";
             // import genTable from "/script/util/table/genTable.js";
@@ -177,10 +177,10 @@
             }
         </script>
     </head>
-    <body>
+    <body dark>
         <section class="container">
-            <form id="data-form" class="info">
-                <div class="head">
+            <form id="data-form">
+                <div class="app-bar">
                     <h1>Edit Entry</h1>
                 </div>
                 <div class="body">
@@ -200,11 +200,12 @@
                     <input type="submit" value="Submit">
                 </div>
             </form>
+            <button onclick="toggleDark()">Toggle Dark mode</button>
         </section>
-        <div class="backdrop dialogContainer">
+        <div class="backdrop dialogContainer flex-layout vertical center">
             <dialog id="image-dlg" class="dialog noPadding">
-                <form class="info noMargin fullHeight">
-                    <div class="head layout horizontal">
+                <form class="no-margin">
+                    <div class="app-bar flex-layout horizontal">
                         <h1 class="flex">Edit Image</h1>
                         <span dialog-action="close">X</span>
                     </div>
@@ -218,7 +219,7 @@
             </dialog>
 
             <dialog id="test-dlg" class="dialog">
-                <div class="layout horizontal">
+                <div class="flex-layout horizontal">
                     <h1 class="flex"> Hello World </h1>
                     <span dialog-action="close">X</span>
                 </div>
@@ -227,27 +228,26 @@
         </div>
         
         <template id="relation-card">
-            <article card-action="click" style="border: 1px solid black">
-                <div class="article-header">
-                    <div class="layout horizontal">
-                        <h2 name="name" clas="flex"></h2>
-                        <!-- Setting `type` is important to prevent submitting the form -->
-                        <button type="button" card-action="delete">Remove</button>
-                    </div>
-                    <p name="type"></p>
-                    <p name="acquired_value"></p>
+            <div card-action="click" class="content-card set-width">
+                <div class="flex-layout vertical">
+                    <!-- Setting `type` is important to prevent submitting the form -->
+                    <h2 name="name" class="flex"></h2>
+                    <button type="button" card-action="delete">Remove</button>
                 </div>
-            </article>
+                <p name="type"></p>
+                <p name="acquired_value"></p>
+            </div>
         </template>
         <template id="image-card">
-            <article card-action="click" class="layout vertical" style="border: 1px solid black">
-                <div class="layout horizontal">
+            <div card-action="click" class="content-card set-width">
+                <div class="flex-layout vertical">
                     <h2 name="name" clas="flex"></h2>
                     <!-- Setting `type` is important to prevent submitting the form -->
                     <button type="button" card-action="delete">Remove</button>
                 </div>
-                <img src="#" loading="lazy">
-            </article>
+                <div class="height-10"></div>
+                <img src="#" loading="lazy" class="full-width">
+            </div>
         </template>
         <template id="tag">
             <span class="tag orange" card-action="click">

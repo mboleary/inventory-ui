@@ -3,17 +3,6 @@
     <head>
         <title>View Entry</title>
         <link rel="stylesheet" type="text/css" href="style/main.css">
-        <link rel="stylesheet" type="text/css" href="style/header.css">
-        <link rel="stylesheet" type="text/css" href="style/footer.css">
-        <link rel="stylesheet" type="text/css" href="style/content.css">
-        <link rel="stylesheet" type="text/css" href="style/cards.css">
-        <link rel="stylesheet" type="text/css" href="style/article.css">
-        <link rel="stylesheet" type="text/css" href="style/misc.css">
-        <link rel="stylesheet" type="text/css" href="style/print.css">
-        <link rel="stylesheet" type="text/css" href="style/form.css">
-        <link rel="stylesheet" type="text/css" href="style/tag.css">
-
-        <link rel="stylesheet" type="text/css" href="customStyle/custom.css">
 
         <meta charset="UTF-8">
         <meta name="description" content="Blank Template Page">
@@ -23,6 +12,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="theme-color" content="#00121a"> <!-- Colored Chrome Mobile Tabs! -->
         <link rel="icon" type="image/png" href="/favicon.png">
+        <script>
+            function toggleDark() {
+                const elem = document.body;
+                let state = elem.getAttribute("dark");
+                if (state === null) {
+                    elem.setAttribute("dark", "");
+                } else {
+                    elem.removeAttribute("dark");
+                }
+            }
+        </script>
         <script type="module">
             import genForm, {fixButtons, getData} from "/script/util/form/genForm.js";
 
@@ -57,35 +57,36 @@
             })
         </script>
     </head>
-    <body>
+    <body dark>
         <section class="container">
-            <form id="data-form" class="info" action="http://localhost:8000/image/upload" method="POST" enctype="multipart/form-data">
-                <div class="head">
+            <form id="data-form" action="http://localhost:8000/image/upload" method="POST" enctype="multipart/form-data">
+                <div class="app-bar">
                     <h1>Upload Image</h1>
                 </div>
                 <div class="body">
                     <p flavor-text>Use this to upload an image</p>
-                    <fieldset>
-                        <label for="image">Image Upload</label><br>
+                    <fieldset class="flex-layout vertical">
+                        <label for="image">Image Upload</label>
                         <input type="file" name="image" id="image">
                     </fieldset>
-                    <fieldset>
-                        <label for="name">Name</label><br>
+                    <fieldset class="flex-layout vertical">
+                        <label for="name">Name</label>
                         <input type="text" name="name" id="name">
                     </fieldset>
-                    <fieldset>
-                        <label for="description">Description</label><br>
+                    <fieldset class="flex-layout vertical">
+                        <label for="description">Description</label>
                         <textarea name="description" id="description"></textarea>
                     </fieldset>
-                    <fieldset>
-                        <input type="checkbox" name="avatar" id="avatar" value="1">
-                        <label for="name">Avatar</label>
+                    <fieldset class="flex-layout vertical">
+                        <label for="avatar" class="option"><input type="checkbox" name="avatar" id="avatar" value="1">Avatar</label>
+                        
                     </fieldset>
                     <hr>
                     <input type="submit" value="Submit">
                 </div>
                 <input type="hidden" name="entry_id">
             </form>
+            <button onclick="toggleDark()">Toggle Dark mode</button>
         </section>
     </body>
 </html>
